@@ -1,16 +1,17 @@
-import 'package:flutter_application_4/components/user_title.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_4/services/chat/chat_service.dart';
 import '../services/auth/auth_service.dart';
 import 'chat_page.dart';
+import 'package:flutter_application_4/components/user_title.dart';
+import 'package:flutter_application_4/components/my_drawer.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   void logout() {
     //get auth service
-    final _auth = AuthService();
-    _auth.signOut();
+    final auth = AuthService();
+    auth.signOut();
   }
 
   //CHAT AND AUTH SERVICES
@@ -23,11 +24,15 @@ class HomePage extends StatelessWidget {
       backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: AppBar(
         title: const Text("Home"),
+        actions: [
+          //logout button
+          IconButton(onPressed: logout, icon: Icon(Icons.logout))
+        ],
         backgroundColor: Colors.transparent,
         foregroundColor: Colors.grey,
         elevation: 0,
       ),
-      drawer: const Drawer(),
+      drawer: const MyDrawer(),
       body: _buildUserList(),
     );
   }
@@ -60,16 +65,16 @@ class HomePage extends StatelessWidget {
   Widget _buildUserListItem(
       Map<String, dynamic> userData, BuildContext context) {
     //display all users except current user
-    if (userData["Email"] != _authService.getCurrentUser()) {
+    if (userData["email"] != _authService.getCurrentUser()!.email) {
       return UserTitle(
-        text: userData["Email"],
+        text: userData["email"],
         onTap: () {
           //go to chat page
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => ChatPage(
-                receiverEmail: userData["Email"],
+                receiverEmail: userData["email"],
                 receiverID: userData["uid"],
               ),
             ),
