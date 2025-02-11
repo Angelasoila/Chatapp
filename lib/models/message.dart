@@ -1,5 +1,4 @@
 
-
 class Message {
   final String senderID;
   final String senderemail;
@@ -22,6 +21,7 @@ class Message {
       'senderemail': senderemail,
       'receiverID': receiverID,
       'timestamp': timestamp,
+      'message': message
     };
   }
 }

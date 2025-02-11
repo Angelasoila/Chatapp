@@ -98,7 +98,8 @@ class _LoginState extends State<Login> {
               children: [
                 Text(
                   "Not a member?",
-                  style: TextStyle(color: Theme.of(context).colorScheme.primary),
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.primary),
                 ),
                 GestureDetector(
                   onTap: widget.onTap,
